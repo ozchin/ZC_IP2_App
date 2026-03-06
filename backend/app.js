@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const helmet = require('helmet');
 const cors = require('cors');
 const rateLimit = require('express-rate-limit');
@@ -15,6 +16,9 @@ app.use(helmet());
 app.use(cors({ origin: true }));
 app.use(express.json({ limit: '32kb' }));
 app.use(express.urlencoded({ extended: false }));
+
+// serve frontend static assets (dashboard, etc.)
+app.use(express.static(path.join(__dirname, '..', 'frontend')));
 
 // logging
 app.use(morgan('combined', {
